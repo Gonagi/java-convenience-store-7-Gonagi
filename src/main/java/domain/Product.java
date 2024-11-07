@@ -4,15 +4,23 @@ import java.util.Objects;
 
 public class Product {
     private final String name;
-    private final Stock stock;
+    private final Quantity quantity;
 
-    private Product(final String name, final Stock stock) {
+    private Product(final String name, final Quantity quantity) {
         this.name = name;
-        this.stock = stock;
+        this.quantity = quantity;
     }
 
-    public static Product of(final String name, final Stock stock) {
-        return new Product(name, stock);
+    public static Product of(final String name, final Quantity quantity) {
+        return new Product(name, quantity);
+    }
+
+    public void reduceProductStock(final int purchaseQuantity) {
+        quantity.reduceQuantity(purchaseQuantity);
+    }
+
+    public int getQuantity() {
+        return quantity.getQuantity();
     }
 
     @Override
