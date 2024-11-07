@@ -15,6 +15,29 @@ public class Inventory {
         return new Inventory(products);
     }
 
+    public void updateInventory(final Product purchaseProduct) {
+        Product findProduct = findPurchaseProduct(purchaseProduct);
+        checkProductStockAvailability(findProduct, purchaseProduct);
+        reduceInventory(findProduct, purchaseProduct);
+    }
+
+    private Product findPurchaseProduct(final Product purchaseProduct) {
+        return products.stream()
+                .filter(purchaseProduct::equals)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요."));
+    }
+
+    private void checkProductStockAvailability(final Product findProduct, final Product purchaseProduct) {
+        if (findProduct.getQuantity() - purchaseProduct.getQuantity() < 0) {
+            throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
+        }
+    }
+
+    private void reduceInventory(final Product product, final Product purchaseProduct) {
+        product.reduceProductStock(purchaseProduct.getQuantity());
+    }
+
     private Set<Product> validateDuplicateProduct(final List<Product> products) {
         Set<Product> deDuplicateProducts = new HashSet<>(products);
         if (deDuplicateProducts.size() != products.size()) {
@@ -23,5 +46,4 @@ public class Inventory {
 
         return deDuplicateProducts;
     }
-
 }
