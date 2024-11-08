@@ -6,7 +6,7 @@ import domain.utils.Parser;
 import java.util.List;
 
 public class ProductParser {
-    public static Product createProductByFile(final String productInformation, final Promotions promotions) {
+    public static Product createProductByParser(final String productInformation, final Promotions promotions) {
         List<String> productElements = parseProductElements(productInformation);
         return createProductByElements(productElements, promotions);
     }

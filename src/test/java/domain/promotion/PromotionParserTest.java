@@ -24,13 +24,13 @@ class PromotionParserTest {
     })
     @ParameterizedTest(name = "입력값: \"{0}\"")
     void 프로모션_문자열로_프로모션_정보를_생성한다(String promotionInformation) {
-        PromotionParser.createPromotionByFile(promotionInformation);
+        PromotionParser.createPromotionByParser(promotionInformation);
     }
 
     @MethodSource("provideInvalidNumberTestCases")
     @ParameterizedTest(name = "입력값: \"{0}\", 유효하지 않은 값: \"{1}\"")
     void buy_또는_get_값들_중_유효하지_않은_값이_있으면_예외가_발생한다(String promotionInformation, String invalidNumber) {
-        Assertions.assertThatThrownBy(() -> PromotionParser.createPromotionByFile(promotionInformation))
+        Assertions.assertThatThrownBy(() -> PromotionParser.createPromotionByParser(promotionInformation))
                 .isInstanceOf(NumberFormatException.class);
     }
 
@@ -41,7 +41,7 @@ class PromotionParserTest {
     })
     @ParameterizedTest(name = "입력값: \"{0}\"")
     void start_date_end_date_값들_중_유효하지_않은_값이_있으면_예외가_발생한다(String promotionInformation) {
-        Assertions.assertThatThrownBy(() -> PromotionParser.createPromotionByFile(promotionInformation))
+        Assertions.assertThatThrownBy(() -> PromotionParser.createPromotionByParser(promotionInformation))
                 .isInstanceOf(DateTimeException.class);
     }
 }

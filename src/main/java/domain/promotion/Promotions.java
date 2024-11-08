@@ -2,8 +2,8 @@ package domain.promotion;
 
 import domain.utils.FileUtils;
 import java.io.FileNotFoundException;
+import java.util.Collections;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class Promotions {
     private final List<Promotion> promotions;
@@ -12,13 +12,15 @@ public class Promotions {
         this.promotions = promotions;
     }
 
-    public static List<Promotion> from(final String filePath) throws FileNotFoundException {
-        List<String> promotions = readFromPromotionFiles(filePath);
+    public static Promotions from(final String filePath) throws FileNotFoundException {
+        List<String> readFromPromotionFiles = readFromPromotionFiles(filePath);
 
-        return promotions.stream()
+        List<Promotion> promotions = readFromPromotionFiles.stream()
                 .skip(1)
-                .map(PromotionParser::createPromotionByFile)
+                .map(PromotionParser::createPromotionByParser)
                 .toList();
+
+        return new Promotions(promotions);
     }
 
     private static List<String> readFromPromotionFiles(final String filePath) throws FileNotFoundException {
@@ -33,6 +35,10 @@ public class Promotions {
         return promotions.stream()
                 .filter(promotion -> name.equals(promotion.getName()))
                 .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("[ERROR] 일치하는 프로모션이 없습니다."));
+                .orElse(null);
+    }
+
+    public List<Promotion> getPromotions() {
+        return Collections.unmodifiableList(promotions);
     }
 }

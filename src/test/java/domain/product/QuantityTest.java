@@ -1,6 +1,5 @@
-package domain;
+package domain.product;
 
-import domain.product.Quantity;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 

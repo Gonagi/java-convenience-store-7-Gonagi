@@ -29,6 +29,10 @@ public class Product {
         return quantity.getQuantity();
     }
 
+    public String getPromotionName() {
+        return promotion.getName();
+    }
+
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) {

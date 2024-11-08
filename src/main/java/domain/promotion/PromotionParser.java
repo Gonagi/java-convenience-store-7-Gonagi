@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class PromotionParser {
-    public static Promotion createPromotionByFile(final String promotionsInformation) {
+    public static Promotion createPromotionByParser(final String promotionsInformation) {
         List<String> promotionElements = parseElements(promotionsInformation);
         return createPromotionByElements(promotionElements);
     }
