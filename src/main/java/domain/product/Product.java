@@ -58,7 +58,7 @@ public class Product {
             return this;
         }
 
-        Builder Promotion(final Promotion promotion) {
+        Builder promotion(final Promotion promotion) {
             this.promotion = promotion;
             return this;
         }
