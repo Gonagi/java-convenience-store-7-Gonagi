@@ -1,11 +1,9 @@
 package domain.promotion;
 
-import java.io.File;
+import domain.utils.FileUtils;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public class Promotions {
     private final List<Promotion> promotions;
@@ -24,15 +22,11 @@ public class Promotions {
     }
 
     private static List<String> readFromPromotionFiles(final String filePath) throws FileNotFoundException {
-        List<String> promotions = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File(filePath))) {
-            while (scanner.hasNextLine()) {
-                promotions.add(scanner.nextLine());
-            }
+        try {
+            return FileUtils.readLinesFromFile(filePath);
         } catch (FileNotFoundException e) {
             throw new FileNotFoundException("[ERROR] 프로모션 파일을 찾을 수 없습니다.");
         }
-        return promotions;
     }
 
     public Promotion findPromotionByName(final String name) {

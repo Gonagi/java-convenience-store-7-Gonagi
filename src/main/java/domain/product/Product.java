@@ -21,6 +21,10 @@ public class Product {
         quantity.reduceQuantity(purchaseQuantity);
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int getQuantity() {
         return quantity.getQuantity();
     }
@@ -34,12 +38,13 @@ public class Product {
             return false;
         }
         final Product otherProduct = (Product) obj;
-        return Objects.equals(name, otherProduct.name);
+        return Objects.equals(name, otherProduct.name) &&
+                Objects.equals(promotion, otherProduct.promotion);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name);
+        return Objects.hash(name, promotion);
     }
 
     public static class Builder {
