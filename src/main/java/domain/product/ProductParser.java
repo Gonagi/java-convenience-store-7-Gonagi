@@ -2,17 +2,19 @@ package domain.product;
 
 import domain.product.Product.Builder;
 import domain.promotion.Promotions;
-import java.util.Arrays;
+import domain.utils.Parser;
 import java.util.List;
 
 public class ProductParser {
-    private static final String COMMA = ",";
+    public static Product createProductByFile(final String productInformation, final Promotions promotions) {
+        List<String> productElements = parseProductElements(productInformation);
+        return createProductByElements(productElements, promotions);
+    }
 
-    public static Product from(final String productInformation, final Promotions promotions) {
-        List<String> productElements = parseElements(productInformation);
+    private static Product createProductByElements(final List<String> productElements, final Promotions promotions) {
         String productName = productElements.get(0);
-        int productPrice = parseNumber(productElements.get(1));
-        int quantity = parseNumber(productElements.get(2));
+        int productPrice = parseProductNumber(productElements.get(1));
+        int quantity = parseProductNumber(productElements.get(2));
         String promotionName = productElements.get(3);
 
         return new Builder(productName, Quantity.from(quantity))
@@ -21,20 +23,19 @@ public class ProductParser {
                 .build();
     }
 
-    private static List<String> parseElements(final String productInformation) {
-        List<String> productElements = Arrays.asList(productInformation.split(COMMA));
+    private static List<String> parseProductElements(final String productInformation) {
+        List<String> productElements = Parser.parseElements(productInformation);
         ProductValidator.validateElementsCount(productElements);
         ProductValidator.validateElementBlankOrNull(productElements);
 
         return productElements;
     }
 
-    private static int parseNumber(final String number) {
+    private static int parseProductNumber(final String number) {
         try {
-            return Integer.parseInt(number);
+            return Parser.parseNumber(number);
         } catch (NumberFormatException e) {
             throw new NumberFormatException("[ERROR] price, quantity 값들 중 유효하지 않은 값이 있습니다.");
         }
     }
-
 }

@@ -19,7 +19,7 @@ public class Promotions {
 
         return promotions.stream()
                 .skip(1)
-                .map(PromotionParser::from)
+                .map(PromotionParser::createPromotionByFile)
                 .toList();
     }
 
