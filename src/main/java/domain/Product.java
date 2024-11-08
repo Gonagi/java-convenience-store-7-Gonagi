@@ -1,18 +1,20 @@
 package domain;
 
+import domain.promotion.Promotion;
 import java.util.Objects;
 
 public class Product {
     private final String name;
+    private final int price;
     private final Quantity quantity;
+    private final Promotion promotion;
 
-    private Product(final String name, final Quantity quantity) {
-        this.name = name;
-        this.quantity = quantity;
-    }
 
-    public static Product of(final String name, final Quantity quantity) {
-        return new Product(name, quantity);
+    private Product(final Builder builder) {
+        this.name = builder.name;
+        this.price = builder.price;
+        this.quantity = builder.quantity;
+        this.promotion = builder.promotion;
     }
 
     public void reduceProductStock(final int purchaseQuantity) {
@@ -38,5 +40,31 @@ public class Product {
     @Override
     public int hashCode() {
         return Objects.hashCode(name);
+    }
+
+    public static class Builder {
+        String name;
+        int price;
+        Quantity quantity;
+        Promotion promotion;
+
+        public Builder(final String name, final Quantity quantity) {
+            this.name = name;
+            this.quantity = quantity;
+        }
+
+        Builder price(final int price) {
+            this.price = price;
+            return this;
+        }
+
+        Builder Promotion(final Promotion promotion) {
+            this.promotion = promotion;
+            return this;
+        }
+
+        public Product build() {
+            return new Product(this);
+        }
     }
 }
