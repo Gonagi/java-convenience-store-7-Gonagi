@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Promotions {
@@ -32,5 +33,12 @@ public class Promotions {
             throw new FileNotFoundException("[ERROR] 프로모션 파일을 찾을 수 없습니다.");
         }
         return promotions;
+    }
+
+    public Promotion findPromotionByName(final String name) {
+        return promotions.stream()
+                .filter(promotion -> name.equals(promotion.getName()))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("[ERROR] 일치하는 프로모션이 없습니다."));
     }
 }

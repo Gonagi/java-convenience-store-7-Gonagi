@@ -1,6 +1,8 @@
 package domain;
 
-import domain.Product.Builder;
+import domain.product.Product;
+import domain.product.Product.Builder;
+import domain.product.Quantity;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;

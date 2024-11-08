@@ -1,4 +1,4 @@
-package domain;
+package domain.product;
 
 import domain.promotion.Promotion;
 import java.util.Objects;

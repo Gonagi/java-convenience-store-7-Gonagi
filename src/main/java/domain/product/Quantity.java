@@ -1,4 +1,4 @@
-package domain;
+package domain.product;
 
 public class Quantity {
     private final static int NO_STOCK = 0;

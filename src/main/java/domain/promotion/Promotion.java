@@ -24,6 +24,10 @@ public class Promotion {
         return new Promotion(name, buy, get, startDate, endDate);
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
