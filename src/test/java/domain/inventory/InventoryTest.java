@@ -1,37 +1,48 @@
-package domain;
+package domain.inventory;
 
 import domain.product.Product;
 import domain.product.Product.Builder;
+import domain.product.Products;
+import domain.product.ProductsFactory;
 import domain.product.Quantity;
+import domain.promotion.Promotions;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class InventoryTest {
+    Promotions promotions;
+    Products products;
     Inventory inventory;
 
     @BeforeEach
     void setUp() {
-        Product water = new Builder("물", Quantity.from(10)).build();
-        Product coke = new Builder("콜라", Quantity.from(8)).build();
+        String promotionFilePath = "src/test/resources/promotions.md";
+        String productFilePath = "src/test/resources/products.md";
 
-        inventory = Inventory.from(Arrays.asList(water, coke));
+        try {
+            promotions = Promotions.from(promotionFilePath);
+            products = ProductsFactory.createProductsByFile(productFilePath, promotions);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        inventory = Inventory.from(products);
     }
 
     @Test
     void 같은_상품이_존재해서는_안된다() {
         Product product = new Builder("사이다", Quantity.from(1)).build();
         Product sameProduct = new Builder("사이다", Quantity.from(2)).build();
-        List<Product> products = Arrays.asList(product, sameProduct);
+        Products sameProducts = ProductsFactory.createProductsByProducts(Arrays.asList(product, sameProduct));
 
-        org.assertj.core.api.Assertions.assertThatThrownBy(() -> Inventory.from(products))
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> Inventory.from(sameProducts))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void 존재하지_않는_상품은_구매할_수_없다() {
-        Product purchaseProduct = new Builder("오렌지주스", Quantity.from(1)).build();
+        Product purchaseProduct = new Builder("민트초코", Quantity.from(1)).build();
 
         org.assertj.core.api.Assertions.assertThatThrownBy(() -> inventory.updateInventory(purchaseProduct))
                 .isInstanceOf(IllegalArgumentException.class);

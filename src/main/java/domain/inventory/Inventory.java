@@ -1,6 +1,7 @@
-package domain;
+package domain.inventory;
 
 import domain.product.Product;
+import domain.product.Products;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,8 +13,8 @@ public class Inventory {
         this.products = validateDuplicateProduct(products);
     }
 
-    public static Inventory from(final List<Product> products) {
-        return new Inventory(products);
+    public static Inventory from(final Products products) {
+        return new Inventory(products.getProducts());
     }
 
     public void updateInventory(final Product purchaseProduct) {
@@ -22,9 +23,9 @@ public class Inventory {
         reduceInventory(findProduct, purchaseProduct);
     }
 
-    private Product findPurchaseProduct(final Product purchaseProduct) {
+    public Product findPurchaseProduct(final Product purchaseProduct) {
         return products.stream()
-                .filter(purchaseProduct::equals)
+                .filter(product -> isMatchingProduct(product, purchaseProduct))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요."));
     }
@@ -46,5 +47,9 @@ public class Inventory {
         }
 
         return deDuplicateProducts;
+    }
+
+    private boolean isMatchingProduct(final Product product, final Product purchaseProduct) {
+        return product.equals(purchaseProduct) || product.isSameName(purchaseProduct.getName());
     }
 }

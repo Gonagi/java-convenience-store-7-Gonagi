@@ -26,7 +26,7 @@ class ProductsTest {
     void 잘못된_파일_경로가_주어지면_예외가_발생해야_한다() {
         String wrongFilePath = "wrongFilePath";
 
-        Assertions.assertThatThrownBy(() -> Products.of(wrongFilePath, promotions))
+        Assertions.assertThatThrownBy(() -> ProductsFactory.createProductsByFile(wrongFilePath, promotions))
                 .isInstanceOf(FileNotFoundException.class);
     }
 
@@ -39,7 +39,7 @@ class ProductsTest {
                 .build();
         Product product2 = new Builder("콜라", Quantity.from(10)).price(1000).build();
         org.junit.jupiter.api.Assertions.assertDoesNotThrow(() -> {
-            Products products = Products.of(productFilePath, promotions);
+            Products products = ProductsFactory.createProductsByFile(productFilePath, promotions);
             Assertions.assertThat(products.getProducts()).contains(product1, product2);
         });
     }

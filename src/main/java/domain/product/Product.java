@@ -21,6 +21,10 @@ public class Product {
         quantity.reduceQuantity(purchaseQuantity);
     }
 
+    public boolean isSameName(final String productName) {
+        return name.equals(productName);
+    }
+
     public String getName() {
         return name;
     }
