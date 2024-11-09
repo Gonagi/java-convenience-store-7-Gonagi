@@ -1,10 +1,10 @@
 package domain.product;
 
 import domain.promotion.Promotions;
-import domain.utils.FileUtils;
 import java.io.FileNotFoundException;
 import java.util.Collections;
 import java.util.List;
+import utils.FileUtils;
 
 public class Products {
     private final List<Product> products;

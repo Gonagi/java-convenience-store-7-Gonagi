@@ -2,9 +2,9 @@ package domain.product;
 
 import domain.product.Product.Builder;
 import domain.promotion.Promotion;
-import domain.utils.Parser;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import utils.Parser;
 
 class ProductTest {
     @Test

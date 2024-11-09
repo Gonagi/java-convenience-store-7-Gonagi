@@ -1,9 +1,9 @@
 package domain.promotion;
 
-import domain.utils.FileUtils;
 import java.io.FileNotFoundException;
 import java.util.Collections;
 import java.util.List;
+import utils.FileUtils;
 
 public class Promotions {
     private final List<Promotion> promotions;

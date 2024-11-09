@@ -1,14 +1,16 @@
-package domain.utils;
+package utils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
-public class Parser {
+public final class Parser {
     private static final String COMMA = ",";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    private Parser() {
+    }
 
     public static List<String> parseElements(final String information) {
         return Arrays.asList(information.split(COMMA));

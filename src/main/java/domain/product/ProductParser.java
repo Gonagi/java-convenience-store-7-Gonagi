@@ -2,8 +2,8 @@ package domain.product;
 
 import domain.product.Product.Builder;
 import domain.promotion.Promotions;
-import domain.utils.Parser;
 import java.util.List;
+import utils.Parser;
 
 public class ProductParser {
     public static Product createProductByParser(final String productInformation, final Promotions promotions) {

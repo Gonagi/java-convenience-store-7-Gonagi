@@ -1,10 +1,10 @@
 package domain.promotion;
 
 
-import domain.utils.Parser;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.List;
+import utils.Parser;
 
 public class PromotionParser {
     public static Promotion createPromotionByParser(final String promotionsInformation) {

@@ -3,11 +3,11 @@ package domain.product;
 import domain.product.Product.Builder;
 import domain.promotion.Promotion;
 import domain.promotion.Promotions;
-import domain.utils.Parser;
 import java.io.FileNotFoundException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import utils.Parser;
 
 class ProductsTest {
     Promotions promotions;
