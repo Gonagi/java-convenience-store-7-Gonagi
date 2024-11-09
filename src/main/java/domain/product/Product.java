@@ -66,12 +66,12 @@ public class Product {
             this.quantity = quantity;
         }
 
-        Builder price(final int price) {
+        public Builder price(final int price) {
             this.price = price;
             return this;
         }
 
-        Builder promotion(final Promotion promotion) {
+        public Builder promotion(final Promotion promotion) {
             this.promotion = promotion;
             return this;
         }

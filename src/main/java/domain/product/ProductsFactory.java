@@ -3,6 +3,8 @@ package domain.product;
 import domain.promotion.Promotions;
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import utils.FileUtils;
 
 public class ProductsFactory {
@@ -10,15 +12,15 @@ public class ProductsFactory {
             throws FileNotFoundException {
         List<String> readFromProductFiles = readFromProductFiles(productFilePath);
 
-        List<Product> products = readFromProductFiles.stream()
+        Set<Product> products = readFromProductFiles.stream()
                 .skip(1)
                 .map(product -> ProductParser.createProductByParser(product, promotions))
-                .toList();
+                .collect(Collectors.toSet());
 
         return new Products(products);
     }
 
-    public static Products createProductsByProducts(final List<Product> products) {
+    public static Products createProductsByProducts(final Set<Product> products) {
         return new Products(products);
     }
 

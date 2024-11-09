@@ -1,16 +1,16 @@
 package domain.product;
 
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 
 public class Products {
-    private final List<Product> products;
+    private final Set<Product> products;
 
-    Products(final List<Product> products) {
+    Products(final Set<Product> products) {
         this.products = products;
     }
 
-    public List<Product> getProducts() {
-        return Collections.unmodifiableList(products);
+    public Set<Product> getProducts() {
+        return Collections.unmodifiableSet(products);
     }
 }

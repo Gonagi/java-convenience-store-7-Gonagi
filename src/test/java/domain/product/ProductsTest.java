@@ -4,6 +4,7 @@ import domain.product.Product.Builder;
 import domain.promotion.Promotion;
 import domain.promotion.Promotions;
 import java.io.FileNotFoundException;
+import java.util.Set;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,17 @@ class ProductsTest {
             throw new RuntimeException(e);
         }
     }
+
+    @Test
+    void 같은_상품이_존재해서는_안된다() {
+        Product product = new Builder("사이다", Quantity.from(1)).build();
+        Product sameProduct = new Builder("사이다", Quantity.from(2)).build();
+
+        org.assertj.core.api.Assertions.assertThatThrownBy(
+                        () -> ProductsFactory.createProductsByProducts(Set.of(product, sameProduct)))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
 
     @Test
     void 잘못된_파일_경로가_주어지면_예외가_발생해야_한다() {
