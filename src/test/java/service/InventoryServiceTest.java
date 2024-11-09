@@ -63,7 +63,7 @@ class InventoryServiceTest {
     @Test
     void 일반상품에서_재고_이상의_수량을_초과하여_구매할_수_없다() {
         Product purchaseProduct = new Builder("물", Quantity.from(100)).build();
-        Product findProduct = inventory.findRegularProductByName(purchaseProduct);
+        Product findProduct = inventory.findProductByName(purchaseProduct);
 
         org.assertj.core.api.Assertions.assertThatThrownBy(
                         () -> inventoryService.checkRegularProductStockAvailability(findProduct, purchaseProduct))
@@ -73,7 +73,7 @@ class InventoryServiceTest {
     @Test
     void 프로모션상품에서_재고_이상의_수량을_초과하여_구매할_수_없다() {
         Product purchaseProduct = new Builder("콜라", Quantity.from(100)).promotion(twoPlusOne).build();
-        Product findProduct = inventory.findPromotionProductByName(purchaseProduct);
+        Product findProduct = inventory.findProductByName(purchaseProduct);
 
         org.assertj.core.api.Assertions.assertThatThrownBy(
                         () -> inventoryService.checkPromotionProductStockAvailability(findProduct, purchaseProduct))

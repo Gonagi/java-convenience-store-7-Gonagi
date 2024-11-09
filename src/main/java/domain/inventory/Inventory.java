@@ -4,6 +4,7 @@ import domain.product.Product;
 import domain.product.Products;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class Inventory {
@@ -25,20 +26,26 @@ public class Inventory {
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요."));
     }
 
-    public Product findRegularProductByName(final Product requestProduct) {
+    public Product findProductByName(final Product requestProduct) {
+        Optional<Product> promotionProduct = findPromotionProductByName(requestProduct);
+
+        return promotionProduct.orElseGet(() -> findRegularProductByName(requestProduct)
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 일반 상품입니다.")));
+    }
+
+
+    private Optional<Product> findRegularProductByName(final Product requestProduct) {
         return products.stream()
                 .filter(product -> product.isSameName(requestProduct.getName()))
                 .filter(product -> !product.isPromotion())
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 일반 상품입니다."));
+                .findFirst();
     }
 
-    public Product findPromotionProductByName(final Product requestProduct) {
+    private Optional<Product> findPromotionProductByName(final Product requestProduct) {
         return products.stream()
                 .filter(product -> product.isSameName(requestProduct.getName()))
                 .filter(Product::isPromotion)
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 프로모션 상품입니다."));
+                .findFirst();
     }
 
     private Set<Product> validateDuplicateProduct(final Set<Product> products) {
