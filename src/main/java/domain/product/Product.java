@@ -25,6 +25,10 @@ public class Product {
         return name.equals(productName);
     }
 
+    public boolean isPromotion() {
+        return promotion != null;
+    }
+
     public String getName() {
         return name;
     }
@@ -33,8 +37,13 @@ public class Product {
         return quantity.getQuantity();
     }
 
-    public String getPromotionName() {
-        return promotion.getName();
+    public int getPromotionBuy() {
+        return promotion.getBuy();
+        
+    }
+
+    public int getPromotionGet() {
+        return promotion.getGet();
     }
 
     @Override
