@@ -12,7 +12,7 @@ public class InventoryService {
 
     public void updateInventory(final Product purchaseProduct) {
         Product findProduct = inventory.findProductByNameAndPromotion(purchaseProduct);
-        reduceProductStock(findProduct, purchaseProduct);
+        reduceProductStock(findProduct, purchaseProduct.getQuantity());
     }
 
     public void checkRegularProductStockAvailability(final Product findProduct, final Product purchaseProduct) {
@@ -27,7 +27,7 @@ public class InventoryService {
         }
     }
 
-    private void reduceProductStock(final Product product, final Product purchaseProduct) {
-        product.reduceProductStock(purchaseProduct.getQuantity());
+    public void reduceProductStock(final Product product, final int purchaseQuantity) {
+        product.reduceProductStock(purchaseQuantity);
     }
 }
