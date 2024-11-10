@@ -43,11 +43,14 @@ public class Product {
 
     public int getPromotionBuy() {
         return promotion.getBuy();
-
     }
 
     public int getPromotionGet() {
         return promotion.getGet();
+    }
+
+    public String getPromotionName() {
+        return promotion.getName();
     }
 
     @Override

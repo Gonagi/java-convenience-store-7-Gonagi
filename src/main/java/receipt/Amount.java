@@ -32,7 +32,6 @@ public class Amount {
         this.membershipDiscount = calculatedDiscount;
     }
 
-
     public void calculateFinalPaymentAmount() {
         this.finalPaymentAmount = totalPurchaseAmount - promotionDiscount - membershipDiscount;
     }
