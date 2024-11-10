@@ -27,4 +27,12 @@ public final class Parser {
     public static String[] splitInputByComma(final String input) {
         return input.split(COMMA);
     }
+
+    public static String removeFrontBracket(final String input) {
+        return input.replace("[", "").trim();
+    }
+
+    public static String removeBackBracket(final String input) {
+        return input.replace("]", "").trim();
+    }
 }

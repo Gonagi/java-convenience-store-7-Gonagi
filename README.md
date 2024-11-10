@@ -17,6 +17,12 @@
     - price, quantity는 숫자로 변환이 가능해야 한다.
     - promotion은 promotions.md에 있는 프로모션이어야 한다.
 
+### ProductFactory
+
+- 파일을 읽어와 Products 객체를 만든다.
+- product로 Set을 만들어 Products 객체를 만든다.
+- 입력한 문자열에서 Products 객체를 만든다.
+
 ### ProductValidator
 
 - 이름, price, quantity, 프로모션 요소만 있어야 한다.
