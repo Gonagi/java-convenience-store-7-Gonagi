@@ -2,7 +2,6 @@ package domain.inventory;
 
 import domain.product.Product;
 import domain.product.Products;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -58,6 +57,6 @@ public class Inventory {
     }
 
     public Set<Product> getProducts() {
-        return new HashSet<>(products);
+        return new LinkedHashSet<>(products);
     }
 }
