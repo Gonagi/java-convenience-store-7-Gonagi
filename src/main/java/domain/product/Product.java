@@ -33,13 +33,17 @@ public class Product {
         return name;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
     public int getQuantity() {
         return quantity.getQuantity();
     }
 
     public int getPromotionBuy() {
         return promotion.getBuy();
-        
+
     }
 
     public int getPromotionGet() {

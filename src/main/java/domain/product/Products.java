@@ -10,6 +10,10 @@ public class Products {
         this.products = products;
     }
 
+    public void addProduct(final Product product) {
+        products.add(product);
+    }
+
     public Set<Product> getProducts() {
         return Collections.unmodifiableSet(products);
     }
