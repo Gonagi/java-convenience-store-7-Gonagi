@@ -24,7 +24,7 @@ public class OutputView {
     }
 
     private void printProductInfo(Product product) {
-        System.out.printf("- %s %d원 %s %s\n",
+        System.out.printf("- %s %,d원 %s %s\n",
                 product.getName(),
                 product.getPrice(),
                 getQuantityInfo(product),
@@ -35,7 +35,7 @@ public class OutputView {
         if (product.getQuantity() == 0) {
             return "재고 없음";
         }
-        return String.valueOf(product.getQuantity());
+        return product.getQuantity() + "개";
     }
 
     private String getPromotionName(Product product) {
@@ -68,7 +68,7 @@ public class OutputView {
     }
 
     private void printReceiptSummary(final Receipt receipt) {
-        System.out.printf("총구매액\t\t%d\t%d\n", receipt.getBuyingProducts().size(), receipt.getTotalPurchaseAmount());
+        System.out.printf("총구매액\t\t%d\t%,d\n", receipt.getBuyingProducts().size(), receipt.getTotalPurchaseAmount());
         System.out.printf("행사할인\t\t\t-%,d\n", receipt.getPromotionDiscount());
         System.out.printf("멤버십할인\t\t\t-%,d\n", receipt.getMembershipDiscount());
         System.out.printf("내실돈\t\t\t %,d\n", receipt.getFinalPaymentAmount());
