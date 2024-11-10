@@ -23,4 +23,8 @@ public final class Parser {
     public static LocalDate parseDate(final String date) {
         return LocalDate.parse(date, DATE_TIME_FORMATTER);
     }
+
+    public static String[] splitInputByComma(final String input) {
+        return input.split(COMMA);
+    }
 }
