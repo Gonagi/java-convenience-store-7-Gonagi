@@ -3,9 +3,9 @@ package domain.product;
 import domain.promotion.Promotions;
 import java.io.FileNotFoundException;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import utils.FileUtils;
 import utils.Parser;
 
@@ -13,13 +13,10 @@ public class ProductsFactory {
     public static Products createProductsByFile(final String productFilePath, final Promotions promotions)
             throws FileNotFoundException {
         List<String> readFromProductFiles = readFromProductFiles(productFilePath);
+        List<Product> productsWithPromotions = parseProductsWithPromotions(readFromProductFiles, promotions);
+        Set<Product> allProducts = addMissingNonPromotionProducts(productsWithPromotions);
 
-        Set<Product> products = readFromProductFiles.stream()
-                .skip(1)
-                .map(product -> ProductParser.createProductByParser(product, promotions))
-                .collect(Collectors.toCollection(LinkedHashSet::new));
-
-        return new Products(products);
+        return new Products(allProducts);
     }
 
     public static Products createProductsByProducts(final Set<Product> products) {
@@ -39,6 +36,39 @@ public class ProductsFactory {
             return FileUtils.readLinesFromFile(filePath);
         } catch (FileNotFoundException e) {
             throw new FileNotFoundException("[ERROR] 상품 파일을 찾을 수 없습니다.");
+        }
+    }
+
+    private static List<Product> parseProductsWithPromotions(final List<String> productFileLines,
+                                                             final Promotions promotions) {
+        return productFileLines.stream()
+                .skip(1)
+                .map(line -> ProductParser.createProductByParser(line, promotions))
+                .toList();
+    }
+
+    private static Set<Product> addMissingNonPromotionProducts(final List<Product> productsWithPromotions) {
+        List<Product> result = new LinkedList<>();
+        for (Product product : productsWithPromotions) {
+            result.add(product);
+            if (product.isPromotion()) {
+                Product regularProduct = createRegularProductIfNeeded(product, productsWithPromotions);
+                addRegularProductIfAbsent(result, regularProduct);
+            }
+        }
+        return new LinkedHashSet<>(result);
+    }
+
+    private static Product createRegularProductIfNeeded(final Product product,
+                                                        final List<Product> productsWithPromotions) {
+        Product regularProduct = new Product.Builder(product.getName(), Quantity.from(0))
+                .price(product.getPrice()).build();
+        return (productsWithPromotions.contains(regularProduct)) ? null : regularProduct;
+    }
+
+    private static void addRegularProductIfAbsent(final List<Product> result, final Product regularProduct) {
+        if (regularProduct != null) {
+            result.add(regularProduct);
         }
     }
 
