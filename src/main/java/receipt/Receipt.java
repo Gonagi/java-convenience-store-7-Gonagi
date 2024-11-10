@@ -3,7 +3,8 @@ package receipt;
 import domain.product.Product;
 import domain.product.Products;
 import domain.product.ProductsFactory;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class Receipt {
     private final Products buyingProducts;
@@ -11,11 +12,18 @@ public class Receipt {
     private final Amount amount;
 
     public Receipt() {
-        this.buyingProducts = ProductsFactory.createProductsByProducts(new HashSet<>());
-        this.freebieProducts = ProductsFactory.createProductsByProducts(new HashSet<>());
+        this.buyingProducts = ProductsFactory.createProductsByProducts(new LinkedHashSet<>());
+        this.freebieProducts = ProductsFactory.createProductsByProducts(new LinkedHashSet<>());
         this.amount = new Amount();
     }
 
+    public Set<Product> getBuyingProducts() {
+        return buyingProducts.getProducts();
+    }
+
+    public Set<Product> getFreebieProducts() {
+        return freebieProducts.getProducts();
+    }
 
     public void addBuyingProducts(final Product product) {
         buyingProducts.addProduct(product);

@@ -2,8 +2,8 @@ package domain.inventory;
 
 import domain.product.Product;
 import domain.product.Products;
-import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -49,7 +49,7 @@ public class Inventory {
     }
 
     private Set<Product> validateDuplicateProduct(final Set<Product> products) {
-        Set<Product> deDuplicateProducts = new HashSet<>(products);
+        Set<Product> deDuplicateProducts = new LinkedHashSet<>(products);
         if (deDuplicateProducts.size() != products.size()) {
             throw new IllegalArgumentException("[ERROR] 중복된 제품이 있어서는 안됩니다.");
         }
@@ -58,6 +58,6 @@ public class Inventory {
     }
 
     public Set<Product> getProducts() {
-        return Collections.unmodifiableSet(products);
+        return new HashSet<>(products);
     }
 }

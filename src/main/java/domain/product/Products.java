@@ -1,6 +1,6 @@
 package domain.product;
 
-import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class Products {
@@ -15,6 +15,6 @@ public class Products {
     }
 
     public Set<Product> getProducts() {
-        return Collections.unmodifiableSet(products);
+        return new LinkedHashSet<>(products);
     }
 }

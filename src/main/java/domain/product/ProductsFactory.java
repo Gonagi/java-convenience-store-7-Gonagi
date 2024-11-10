@@ -2,6 +2,7 @@ package domain.product;
 
 import domain.promotion.Promotions;
 import java.io.FileNotFoundException;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -15,7 +16,7 @@ public class ProductsFactory {
         Set<Product> products = readFromProductFiles.stream()
                 .skip(1)
                 .map(product -> ProductParser.createProductByParser(product, promotions))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(LinkedHashSet::new));
 
         return new Products(products);
     }
