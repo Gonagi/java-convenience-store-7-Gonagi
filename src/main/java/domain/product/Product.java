@@ -1,6 +1,8 @@
 package domain.product;
 
+import camp.nextstep.edu.missionutils.DateTimes;
 import domain.promotion.Promotion;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Product {
@@ -26,7 +28,7 @@ public class Product {
     }
 
     public boolean isPromotion() {
-        return promotion != null;
+        return promotion != null && checkPromotionDate();
     }
 
     public String getName() {
@@ -51,6 +53,24 @@ public class Product {
 
     public String getPromotionName() {
         return promotion.getName();
+    }
+
+    public boolean checkPromotionDate() {
+        LocalDate promotionStartDate = promotion.getStartDate();
+        LocalDate promotionEndDate = promotion.getEndDate();
+        LocalDate now = DateTimes.now().toLocalDate();
+
+        return isWithinPromotionPeriod(now, promotionStartDate, promotionEndDate);
+    }
+
+    private boolean isWithinPromotionPeriod(final LocalDate date, final LocalDate startDate, final LocalDate endDate) {
+        return isDateRangeValid(startDate, endDate)
+                && (date.isEqual(startDate) || date.isEqual(endDate)
+                || (date.isAfter(startDate) && date.isBefore(endDate)));
+    }
+
+    private boolean isDateRangeValid(final LocalDate startDate, final LocalDate endDate) {
+        return startDate != null && endDate != null && !startDate.isAfter(endDate);
     }
 
     @Override
