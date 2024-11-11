@@ -1,6 +1,7 @@
 package domain.promotion;
 
 
+import constant.ErrorMessage;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.List;
@@ -34,7 +35,7 @@ public class PromotionParser {
         try {
             return Parser.parseNumber(number);
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("[ERROR] buy, get 값들 중 유효하지 않은 값이 있습니다.");
+            throw new NumberFormatException(ErrorMessage.INVALID_PROMOTION_VALUES.getMessage());
         }
     }
 
@@ -42,7 +43,7 @@ public class PromotionParser {
         try {
             return Parser.parseDate(date);
         } catch (DateTimeException e) {
-            throw new DateTimeException("[ERROR] start_date, end_date 값들 중 유효하지 않은 값이 있습니다.");
+            throw new DateTimeException(ErrorMessage.INVALID_PROMOTION_DATES.getMessage());
         }
     }
 }

@@ -1,5 +1,6 @@
 package domain.product;
 
+import constant.ErrorMessage;
 import domain.promotion.Promotions;
 import java.io.FileNotFoundException;
 import java.util.LinkedHashSet;
@@ -35,7 +36,7 @@ public class ProductsFactory {
         try {
             return FileUtils.readLinesFromFile(filePath);
         } catch (FileNotFoundException e) {
-            throw new FileNotFoundException("[ERROR] 상품 파일을 찾을 수 없습니다.");
+            throw new FileNotFoundException(ErrorMessage.PRODUCT_FILE_NOT_FOUND.getMessage());
         }
     }
 

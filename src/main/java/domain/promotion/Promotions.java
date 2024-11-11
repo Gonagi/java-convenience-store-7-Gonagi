@@ -1,5 +1,6 @@
 package domain.promotion;
 
+import constant.ErrorMessage;
 import java.io.FileNotFoundException;
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +28,7 @@ public class Promotions {
         try {
             return FileUtils.readLinesFromFile(filePath);
         } catch (FileNotFoundException e) {
-            throw new FileNotFoundException("[ERROR] 프로모션 파일을 찾을 수 없습니다.");
+            throw new FileNotFoundException(ErrorMessage.PROMOTION_FILE_NOT_FOUND.getMessage());
         }
     }
 

@@ -1,15 +1,16 @@
 package domain.product;
 
+import constant.ErrorMessage;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public class ProductValidator {
     public static void validateElementsCount(final List<String> productElements) {
         if (productElements.size() < 4) {
-            throw new NoSuchElementException("[ERROR] \"이름, price, quantity, 프로모션\" 중 누락된 요소가 있습니다.");
+            throw new NoSuchElementException(ErrorMessage.MISSING_PRODUCT_FIELDS.getMessage());
         }
         if (productElements.size() > 4) {
-            throw new NoSuchElementException("[ERROR] \"이름, price, quantity, 프로모션\" 외 추가된 요소가 있습니다.");
+            throw new NoSuchElementException(ErrorMessage.ADDITIONAL_FIELDS_IN_PRODUCT.getMessage());
         }
     }
 
@@ -19,7 +20,7 @@ public class ProductValidator {
                 .count();
 
         if (blankCount > 0) {
-            throw new IllegalArgumentException("[ERROR] 요소들 중 누락된 값이 있습니다.");
+            throw new IllegalArgumentException(ErrorMessage.MISSING_VALUES_IN_FIELDS.getMessage());
         }
     }
 }

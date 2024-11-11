@@ -1,5 +1,6 @@
 package config;
 
+import constant.ErrorMessage;
 import controller.Controller;
 import domain.inventory.Inventory;
 import domain.product.Products;
@@ -58,7 +59,7 @@ public class AppConfig {
         try {
             return Promotions.from(PROMOTION_FILE_PATH);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException("[ERROR] Promotions 파일을 찾을 수 없습니다: " + e.getMessage(), e);
+            throw new RuntimeException(ErrorMessage.PROMOTION_FILE_NOT_FOUND.getMessage());
         }
     }
 
@@ -66,7 +67,7 @@ public class AppConfig {
         try {
             return ProductsFactory.createProductsByFile(PRODUCT_FILE_PATH, promotions);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException("[ERROR] Products 파일을 찾을 수 없습니다: " + e.getMessage(), e);
+            throw new RuntimeException(ErrorMessage.PRODUCT_FILE_NOT_FOUND.getMessage());
         }
     }
 }

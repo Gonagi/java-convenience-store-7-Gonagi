@@ -1,5 +1,6 @@
 package service;
 
+import constant.ErrorMessage;
 import domain.product.Product;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,7 +48,7 @@ public class InputService {
         String[] items = Parser.splitInputByComma(input);
         for (String item : items) {
             if (!isValidItem(item.trim())) {
-                throw new IllegalArgumentException("[ERROR] 올바르지 않은 형식으로 입력했습니다. 다시 입력해 주세요.");
+                throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getMessage());
             }
         }
         return items;

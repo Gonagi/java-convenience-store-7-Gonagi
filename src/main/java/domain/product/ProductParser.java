@@ -1,5 +1,6 @@
 package domain.product;
 
+import constant.ErrorMessage;
 import domain.promotion.Promotions;
 import java.util.List;
 import utils.Parser;
@@ -33,7 +34,7 @@ public class ProductParser {
         try {
             return Parser.parseNumber(number);
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("[ERROR] price, quantity 값들 중 유효하지 않은 값이 있습니다.");
+            throw new NumberFormatException(ErrorMessage.INVALID_PRICE_OR_QUANTITY.getMessage());
         }
     }
 

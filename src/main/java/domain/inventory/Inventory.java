@@ -1,5 +1,6 @@
 package domain.inventory;
 
+import constant.ErrorMessage;
 import domain.product.Product;
 import domain.product.Products;
 import java.util.LinkedHashSet;
@@ -22,7 +23,7 @@ public class Inventory {
                 .filter(product -> product.isSameName(purchaseProduct.getName()))
                 .filter(purchaseProduct::equals)
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요."));
+                .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.PRODUCT_NOT_FOUND.getMessage()));
     }
 
     public Product findProductByName(final Product requestProduct) {
@@ -33,7 +34,7 @@ public class Inventory {
 
         Optional<Product> expiredPromotionProduct = findExpiredPromotionProductByName(requestProduct);
         return expiredPromotionProduct.orElseGet(() -> findRegularProductByName(requestProduct)
-                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.")));
+                .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.EXCEEDS_STOCK_QUANTITY.getMessage())));
     }
 
     public long getProductStock(final Product requestProduct) {
@@ -70,7 +71,7 @@ public class Inventory {
     private Set<Product> validateDuplicateProduct(final Set<Product> products) {
         Set<Product> deDuplicateProducts = new LinkedHashSet<>(products);
         if (deDuplicateProducts.size() != products.size()) {
-            throw new IllegalArgumentException("[ERROR] 중복된 제품이 있어서는 안됩니다.");
+            throw new IllegalArgumentException(ErrorMessage.DUPLICATE_PRODUCT_NOT_ALLOWED.getMessage());
         }
 
         return deDuplicateProducts;

@@ -1,5 +1,6 @@
 package controller;
 
+import constant.ErrorMessage;
 import domain.product.Product;
 import domain.product.Products;
 import domain.product.ProductsFactory;
@@ -88,7 +89,7 @@ public class Controller {
     private void checkProductStock(final Product product, final long quantity) {
         long productStock = inventoryService.getProductStock(product);
         if (quantity > productStock) {
-            throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.EXCEEDS_STOCK_QUANTITY.getMessage());
         }
     }
 }
