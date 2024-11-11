@@ -3,10 +3,8 @@ package domain.product;
 import constant.ErrorMessage;
 import domain.promotion.Promotions;
 import java.io.FileNotFoundException;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import utils.FileUtils;
 import utils.Parser;
 
@@ -15,17 +13,17 @@ public class ProductsFactory {
             throws FileNotFoundException {
         List<String> readFromProductFiles = readFromProductFiles(productFilePath);
         List<Product> productsWithPromotions = parseProductsWithPromotions(readFromProductFiles, promotions);
-        Set<Product> allProducts = addMissingNonPromotionProducts(productsWithPromotions);
+        List<Product> allProducts = addMissingNonPromotionProducts(productsWithPromotions);
 
         return new Products(allProducts);
     }
 
-    public static Products createProductsByProducts(final Set<Product> products) {
+    public static Products createProductsByProducts(final List<Product> products) {
         return new Products(products);
     }
 
     public static Products createProductsByInput(final String[] inputOrders) {
-        Set<Product> products = new LinkedHashSet<>();
+        List<Product> products = new LinkedList<>();
         for (String inputOrder : inputOrders) {
             products.add(createProduct(inputOrder));
         }
@@ -48,7 +46,7 @@ public class ProductsFactory {
                 .toList();
     }
 
-    private static Set<Product> addMissingNonPromotionProducts(final List<Product> productsWithPromotions) {
+    private static List<Product> addMissingNonPromotionProducts(final List<Product> productsWithPromotions) {
         List<Product> result = new LinkedList<>();
         for (Product product : productsWithPromotions) {
             result.add(product);
@@ -57,7 +55,7 @@ public class ProductsFactory {
                 addRegularProductIfAbsent(result, regularProduct);
             }
         }
-        return new LinkedHashSet<>(result);
+        return new LinkedList<>(result);
     }
 
     private static Product createRegularProductIfNeeded(final Product product,

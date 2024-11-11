@@ -3,7 +3,7 @@ package domain.receipt;
 import domain.product.Product;
 import domain.product.Products;
 import domain.product.ProductsFactory;
-import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 public class Receipt {
@@ -12,8 +12,8 @@ public class Receipt {
     private final Amount amount;
 
     public Receipt() {
-        this.buyingProducts = ProductsFactory.createProductsByProducts(new LinkedHashSet<>());
-        this.freebieProducts = ProductsFactory.createProductsByProducts(new LinkedHashSet<>());
+        this.buyingProducts = ProductsFactory.createProductsByProducts(new LinkedList<>());
+        this.freebieProducts = ProductsFactory.createProductsByProducts(new LinkedList<>());
         this.amount = new Amount();
     }
 

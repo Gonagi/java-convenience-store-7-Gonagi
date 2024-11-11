@@ -31,7 +31,9 @@ public class Controller {
     public void run() {
         outputService.printBeforeTransaction(inventoryService.getInventory());
         startOrderProcessing();
+
         processMembershipDiscount();
+        receiptService.updateFinalPaymentAmount();
         outputService.printAfterTransaction(receiptService.getReceipt());
         processAdditionalPurchase();
     }
@@ -60,7 +62,9 @@ public class Controller {
         long purchaseQuantity = purchaseProduct.getQuantity();
 
         processProduct(findProduct, purchaseQuantity);
-        receiptService.updateFinalPaymentAmount();
+//        processMembershipDiscount();
+
+//        receiptService.updateFinalPaymentAmount();
         inventoryService.reduceProductStock(findProduct, purchaseQuantity);
     }
 

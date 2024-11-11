@@ -28,9 +28,9 @@ public class InputService {
         return inputYesNo();
     }
 
-    public String inputRegularPricePaymentOption(final Product product) {
+    public String inputRegularPricePaymentOption(final String name, final long quantity) {
         System.out.printf("현재 %s %d개는 프로모션 할인이 적용되지 않습니다. 그래도 구매하시겠습니까? (Y/N)%n",
-                product.getName(), product.getQuantity());
+                name, quantity);
         return inputYesNo();
     }
 

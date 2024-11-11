@@ -1,12 +1,13 @@
 package domain.product;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Products {
-    private final Set<Product> products;
+    private final List<Product> products;
 
-    Products(final Set<Product> products) {
+    Products(final List<Product> products) {
         this.products = products;
     }
 
