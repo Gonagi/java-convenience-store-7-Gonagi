@@ -78,7 +78,7 @@ public class Controller {
             throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
         }
 
-        if (product.isPromotion()) {
+        if (product.isPromotion() && product.checkPromotionDate()) {
             promotionService.processPromotionProduct(product, quantity, receiptService);
             return;
         }

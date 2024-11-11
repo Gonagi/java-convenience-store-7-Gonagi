@@ -11,7 +11,6 @@ public class Product {
     private final Quantity quantity;
     private final Promotion promotion;
 
-
     private Product(final Builder builder) {
         this.name = builder.name;
         this.price = builder.price;
@@ -28,31 +27,7 @@ public class Product {
     }
 
     public boolean isPromotion() {
-        return promotion != null && checkPromotionDate();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public int getQuantity() {
-        return quantity.getQuantity();
-    }
-
-    public int getPromotionBuy() {
-        return promotion.getBuy();
-    }
-
-    public int getPromotionGet() {
-        return promotion.getGet();
-    }
-
-    public String getPromotionName() {
-        return promotion.getName();
+        return promotion != null;
     }
 
     public boolean checkPromotionDate() {
@@ -71,6 +46,30 @@ public class Product {
 
     private boolean isDateRangeValid(final LocalDate startDate, final LocalDate endDate) {
         return startDate != null && endDate != null && !startDate.isAfter(endDate);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public String getPromotionName() {
+        return promotion.getName();
+    }
+
+    public int getQuantity() {
+        return quantity.getQuantity();
+    }
+
+    public int getPromotionBuy() {
+        return promotion.getBuy();
+    }
+
+    public int getPromotionGet() {
+        return promotion.getGet();
     }
 
     @Override

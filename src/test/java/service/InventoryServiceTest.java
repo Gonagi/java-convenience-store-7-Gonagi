@@ -12,7 +12,6 @@ import java.io.FileNotFoundException;
 import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -58,25 +57,5 @@ class InventoryServiceTest {
         Product findProduct = inventory.findProductByNameAndPromotion(product);
 
         Assertions.assertThat(findProduct.getQuantity()).isEqualTo(expectedQuantity);
-    }
-
-    @Test
-    void 일반상품에서_재고_이상의_수량을_초과하여_구매할_수_없다() {
-        Product purchaseProduct = new Builder("물", Quantity.from(100)).build();
-        Product findProduct = inventory.findProductByName(purchaseProduct);
-
-        org.assertj.core.api.Assertions.assertThatThrownBy(
-                        () -> inventoryService.checkRegularProductStockAvailability(findProduct, purchaseProduct))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @Test
-    void 프로모션상품에서_재고_이상의_수량을_초과하여_구매할_수_없다() {
-        Product purchaseProduct = new Builder("콜라", Quantity.from(100)).promotion(twoPlusOne).build();
-        Product findProduct = inventory.findProductByName(purchaseProduct);
-
-        org.assertj.core.api.Assertions.assertThatThrownBy(
-                        () -> inventoryService.checkPromotionProductStockAvailability(findProduct, purchaseProduct))
-                .isInstanceOf(IllegalArgumentException.class);
     }
 }

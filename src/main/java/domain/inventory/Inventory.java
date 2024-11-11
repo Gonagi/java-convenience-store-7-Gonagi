@@ -27,17 +27,25 @@ public class Inventory {
 
     public Product findProductByName(final Product requestProduct) {
         Optional<Product> promotionProduct = findPromotionProductByName(requestProduct);
+        if (promotionProduct.isPresent()) {
+            return promotionProduct.get();
+        }
 
-        return promotionProduct.orElseGet(() -> findRegularProductByName(requestProduct)
+        Optional<Product> expiredPromotionProduct = findExpiredPromotionProductByName(requestProduct);
+        return expiredPromotionProduct.orElseGet(() -> findRegularProductByName(requestProduct)
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.")));
     }
 
     public int getProductStock(final Product requestProduct) {
         int count = 0;
         Optional<Product> promotionProduct = findPromotionProductByName(requestProduct);
+        Optional<Product> expiredPromotionProduct = findExpiredPromotionProductByName(requestProduct);
         Optional<Product> regularProduct = findRegularProductByName(requestProduct);
         if (promotionProduct.isPresent()) {
             count += promotionProduct.get().getQuantity();
+        }
+        if (expiredPromotionProduct.isPresent()) {
+            count += expiredPromotionProduct.get().getQuantity();
         }
         if (regularProduct.isPresent()) {
             count += regularProduct.get().getQuantity();
@@ -56,6 +64,15 @@ public class Inventory {
         return products.stream()
                 .filter(product -> product.isSameName(requestProduct.getName()))
                 .filter(Product::isPromotion)
+                .filter(Product::checkPromotionDate)
+                .findFirst();
+    }
+
+    private Optional<Product> findExpiredPromotionProductByName(final Product requestProduct) {
+        return products.stream()
+                .filter(product -> product.isSameName(requestProduct.getName()))
+                .filter(Product::isPromotion)
+                .filter(product -> !product.checkPromotionDate())
                 .findFirst();
     }
 
