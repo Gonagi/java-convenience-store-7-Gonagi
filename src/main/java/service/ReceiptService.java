@@ -16,6 +16,9 @@ public class ReceiptService {
                 .price(product.getPrice()).build();
 
         receipt.addBuyingProducts(buyingProduct);
+        if (product.isPromotion() && product.checkPromotionDate()) {
+            receipt.minusMembershipDiscount(buyingProduct);
+        }
     }
 
     public void addFreebieProduct(final Product product, final long quantity) {

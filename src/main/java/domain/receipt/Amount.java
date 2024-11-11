@@ -21,8 +21,12 @@ public class Amount {
         this.promotionDiscount += discount;
     }
 
+    public void minusMembershipDiscount(final long discount) {
+        this.membershipDiscount += discount;
+    }
+
     public void calculateMembershipDiscount() {
-        long nonPromotionAmount = totalPurchaseAmount - promotionDiscount;
+        long nonPromotionAmount = totalPurchaseAmount - membershipDiscount;
         long calculatedDiscount = (long) (nonPromotionAmount * 0.3);
 
         if (calculatedDiscount > 8000) {

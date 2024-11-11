@@ -68,7 +68,9 @@ public class OutputView {
     }
 
     private void printReceiptSummary(final Receipt receipt) {
-        System.out.printf("총구매액\t\t%d\t%,d\n", receipt.getBuyingProducts().size(), receipt.getTotalPurchaseAmount());
+        System.out.printf("총구매액\t\t%d\t%,d\n", receipt.getBuyingProducts().stream()
+                .mapToLong(Product::getQuantity)
+                .sum(), receipt.getTotalPurchaseAmount());
         System.out.printf("행사할인\t\t\t-%,d\n", receipt.getPromotionDiscount());
         System.out.printf("멤버십할인\t\t\t-%,d\n", receipt.getMembershipDiscount());
         System.out.printf("내실돈\t\t\t %,d\n", receipt.getFinalPaymentAmount());

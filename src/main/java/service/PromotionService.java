@@ -11,49 +11,27 @@ public class PromotionService {
 
     public void processPromotionProduct(final Product product, long purchaseQuantity,
                                         final ReceiptService receiptService) {
-        while (purchaseQuantity > 0) {
-            if (purchaseQuantity < product.getPromotionBuy()) {
-                handlePromotionUnderQuantity(product, purchaseQuantity, receiptService);
-                break;
-            }
-            processPromotion(product, purchaseQuantity, receiptService);
-            purchaseQuantity -= product.getPromotionBuy();
-        }
-    }
-
-    private void handlePromotionUnderQuantity(final Product product, long purchaseQuantity,
-                                              final ReceiptService receiptService) {
-        String response = inputService.inputPromotionApplied(product);
-        if ("Y".equals(response)) {
-            applyPromotion(product, receiptService);
-        }
-        if ("N".equals(response)) {
-            handleRegularPricePayment(product, purchaseQuantity, receiptService);
-        }
-    }
-
-    private void applyPromotion(Product product, ReceiptService receiptService) {
-        long buy = product.getPromotionBuy();
-        long get = product.getPromotionGet();
-        receiptService.addBuyingProducts(product, buy);
-        receiptService.addFreebieProduct(product, get);
-    }
-
-    private void handleRegularPricePayment(Product product, long purchaseQuantity,
-                                           ReceiptService receiptService) {
-        String response = inputService.inputRegularPricePaymentOption(product);
-        if ("Y".equals(response)) {
+        long productSet = product.getPromotionBuy() + product.getPromotionGet();
+        long buy = product.getPromotionBuy() * (purchaseQuantity / productSet);
+        long get = product.getPromotionGet() * (purchaseQuantity / productSet);
+        if (purchaseQuantity % productSet == 0) {
             receiptService.addBuyingProducts(product, purchaseQuantity);
+            receiptService.addFreebieProduct(product, get);
+            return;
         }
-    }
-
-    private void processPromotion(final Product product, final long remainingQuantity,
-                                  final ReceiptService receiptService) {
-        long buy = product.getPromotionBuy();
-        long get = product.getPromotionGet();
-        long purchasableQuantity = Math.min(buy, remainingQuantity);
-
-        receiptService.addBuyingProducts(product, purchasableQuantity);
+        if (purchaseQuantity % productSet == product.getPromotionBuy()) {
+            String response = inputService.inputPromotionApplied(product);
+            if ("Y".equals(response)) {
+                receiptService.addBuyingProducts(product, purchaseQuantity + product.getPromotionGet());
+                receiptService.addFreebieProduct(product, get + product.getPromotionGet());
+            }
+            if ("N".equals(response)) {
+                receiptService.addBuyingProducts(product, purchaseQuantity);
+                receiptService.addFreebieProduct(product, get);
+            }
+            return;
+        }
+        receiptService.addBuyingProducts(product, purchaseQuantity - get);
         receiptService.addFreebieProduct(product, get);
     }
 }

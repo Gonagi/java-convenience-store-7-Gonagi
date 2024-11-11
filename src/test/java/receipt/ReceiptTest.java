@@ -45,7 +45,7 @@ class ReceiptTest {
 
     @Test
     void 멤버십_할인의_최대한도를_넘지않는_할인_금액을_계산합니다() {
-        int expectedMembershipDiscount = 1200;
+        int expectedMembershipDiscount = 3000;
 
         receipt.addBuyingProducts(coke);
         receipt.addFreebieProducts(cider);
