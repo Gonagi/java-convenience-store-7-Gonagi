@@ -27,8 +27,8 @@ public class Receipt {
         amount.addPromotionDiscount(product.getPrice() * product.getQuantity());
     }
 
-    public void minusMembershipDiscount(final Product product) {
-        amount.minusMembershipDiscount(product.getPrice() * product.getQuantity());
+    public void addPromotionPurchaseAmount(final Product product) {
+        amount.addPromotionPurchaseAmount(product.getPrice() * product.getQuantity());
     }
 
     public void calculateMembershipDiscount() {

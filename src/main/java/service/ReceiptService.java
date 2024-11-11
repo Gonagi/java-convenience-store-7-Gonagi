@@ -17,7 +17,7 @@ public class ReceiptService {
 
         receipt.addBuyingProducts(buyingProduct);
         if (product.isPromotion() && product.checkPromotionDate()) {
-            receipt.minusMembershipDiscount(buyingProduct);
+            receipt.addPromotionPurchaseAmount(buyingProduct);
         }
     }
 
