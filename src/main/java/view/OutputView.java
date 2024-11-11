@@ -2,7 +2,7 @@ package view;
 
 import domain.inventory.Inventory;
 import domain.product.Product;
-import receipt.Receipt;
+import domain.receipt.Receipt;
 
 public class OutputView {
     public void printStartMessage() {

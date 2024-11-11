@@ -2,7 +2,7 @@ package service;
 
 import domain.product.Product;
 import domain.product.Quantity;
-import receipt.Receipt;
+import domain.receipt.Receipt;
 
 public class ReceiptService {
     private final Receipt receipt;

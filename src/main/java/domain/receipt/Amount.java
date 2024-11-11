@@ -1,4 +1,4 @@
-package receipt;
+package domain.receipt;
 
 public class Amount {
     private long totalPurchaseAmount;

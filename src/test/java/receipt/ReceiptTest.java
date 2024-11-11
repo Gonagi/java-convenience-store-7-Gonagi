@@ -3,6 +3,7 @@ package receipt;
 import domain.product.Product;
 import domain.product.Product.Builder;
 import domain.product.Quantity;
+import domain.receipt.Receipt;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

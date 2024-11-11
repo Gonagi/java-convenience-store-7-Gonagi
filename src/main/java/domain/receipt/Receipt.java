@@ -1,4 +1,4 @@
-package receipt;
+package domain.receipt;
 
 import domain.product.Product;
 import domain.product.Products;

@@ -4,10 +4,10 @@ import domain.product.Product;
 import domain.product.Product.Builder;
 import domain.product.Quantity;
 import domain.promotion.Promotion;
+import domain.receipt.Receipt;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import receipt.Receipt;
 import utils.Parser;
 
 class ReceiptServiceTest {
