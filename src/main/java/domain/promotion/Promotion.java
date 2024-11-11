@@ -5,12 +5,12 @@ import java.util.Objects;
 
 public class Promotion {
     private final String name;
-    private final int buy;
-    private final int get;
+    private final long buy;
+    private final long get;
     private final LocalDate startDate;
     private final LocalDate endDate;
 
-    private Promotion(final String name, final int buy, final int get,
+    private Promotion(final String name, final long buy, final long get,
                       final LocalDate startDate, final LocalDate endDate) {
         this.name = name;
         this.buy = buy;
@@ -19,7 +19,7 @@ public class Promotion {
         this.endDate = endDate;
     }
 
-    public static Promotion of(final String name, final int buy, final int get,
+    public static Promotion of(final String name, final long buy, final long get,
                                final LocalDate startDate, final LocalDate endDate) {
         return new Promotion(name, buy, get, startDate, endDate);
     }
@@ -28,11 +28,11 @@ public class Promotion {
         return name;
     }
 
-    public int getBuy() {
+    public long getBuy() {
         return buy;
     }
 
-    public int getGet() {
+    public long getGet() {
         return get;
     }
 

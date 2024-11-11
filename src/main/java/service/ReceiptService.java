@@ -11,14 +11,14 @@ public class ReceiptService {
         this.receipt = receipt;
     }
 
-    public void addBuyingProducts(final Product product, final int quantity) {
+    public void addBuyingProducts(final Product product, final long quantity) {
         Product buyingProduct = new Product.Builder(product.getName(), Quantity.from(quantity))
                 .price(product.getPrice()).build();
 
         receipt.addBuyingProducts(buyingProduct);
     }
 
-    public void addFreebieProduct(final Product product, final int quantity) {
+    public void addFreebieProduct(final Product product, final long quantity) {
         Product freebieProduct = new Product.Builder(product.getName(), Quantity.from(quantity))
                 .price(product.getPrice()).build();
 

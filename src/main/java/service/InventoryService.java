@@ -15,7 +15,7 @@ public class InventoryService {
         reduceProductStock(findProduct, purchaseProduct.getQuantity());
     }
 
-    public void reduceProductStock(final Product product, final int purchaseQuantity) {
+    public void reduceProductStock(final Product product, final long purchaseQuantity) {
         product.reduceProductStock(purchaseQuantity);
     }
 }

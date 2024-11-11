@@ -16,8 +16,8 @@ public final class Parser {
         return Arrays.asList(information.split(COMMA));
     }
 
-    public static int parseNumber(final String number) {
-        return Integer.parseInt(number);
+    public static long parseNumber(final String number) {
+        return Long.parseLong(number);
     }
 
     public static LocalDate parseDate(final String date) {

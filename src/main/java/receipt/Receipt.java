@@ -17,14 +17,6 @@ public class Receipt {
         this.amount = new Amount();
     }
 
-    public Set<Product> getBuyingProducts() {
-        return buyingProducts.getProducts();
-    }
-
-    public Set<Product> getFreebieProducts() {
-        return freebieProducts.getProducts();
-    }
-
     public void addBuyingProducts(final Product product) {
         buyingProducts.addProduct(product);
         amount.addTotalPurchaseAmount(product.getPrice() * product.getQuantity());
@@ -43,19 +35,27 @@ public class Receipt {
         amount.calculateFinalPaymentAmount();
     }
 
-    public int getTotalPurchaseAmount() {
+    public Set<Product> getBuyingProducts() {
+        return buyingProducts.getProducts();
+    }
+
+    public Set<Product> getFreebieProducts() {
+        return freebieProducts.getProducts();
+    }
+
+    public long getTotalPurchaseAmount() {
         return amount.getTotalPurchaseAmount();
     }
 
-    public int getPromotionDiscount() {
+    public long getPromotionDiscount() {
         return amount.getPromotionDiscount();
     }
 
-    public int getMembershipDiscount() {
+    public long getMembershipDiscount() {
         return amount.getMembershipDiscount();
     }
 
-    public int getFinalPaymentAmount() {
+    public long getFinalPaymentAmount() {
         return amount.getFinalPaymentAmount();
     }
 }

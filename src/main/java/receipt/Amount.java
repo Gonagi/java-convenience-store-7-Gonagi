@@ -1,10 +1,10 @@
 package receipt;
 
 public class Amount {
-    private int totalPurchaseAmount;
-    private int promotionDiscount;
-    private int membershipDiscount;
-    private int finalPaymentAmount;
+    private long totalPurchaseAmount;
+    private long promotionDiscount;
+    private long membershipDiscount;
+    private long finalPaymentAmount;
 
     public Amount() {
         this.totalPurchaseAmount = 0;
@@ -13,17 +13,17 @@ public class Amount {
         this.finalPaymentAmount = 0;
     }
 
-    public void addTotalPurchaseAmount(final int amount) {
+    public void addTotalPurchaseAmount(final long amount) {
         this.totalPurchaseAmount += amount;
     }
 
-    public void addPromotionDiscount(final int discount) {
+    public void addPromotionDiscount(final long discount) {
         this.promotionDiscount += discount;
     }
 
     public void calculateMembershipDiscount() {
-        int nonPromotionAmount = totalPurchaseAmount - promotionDiscount;
-        int calculatedDiscount = (int) (nonPromotionAmount * 0.3);
+        long nonPromotionAmount = totalPurchaseAmount - promotionDiscount;
+        long calculatedDiscount = (long) (nonPromotionAmount * 0.3);
 
         if (calculatedDiscount > 8000) {
             this.membershipDiscount = 8000;
@@ -36,19 +36,19 @@ public class Amount {
         this.finalPaymentAmount = totalPurchaseAmount - promotionDiscount - membershipDiscount;
     }
 
-    public int getTotalPurchaseAmount() {
+    public long getTotalPurchaseAmount() {
         return totalPurchaseAmount;
     }
 
-    public int getPromotionDiscount() {
+    public long getPromotionDiscount() {
         return promotionDiscount;
     }
 
-    public int getMembershipDiscount() {
+    public long getMembershipDiscount() {
         return membershipDiscount;
     }
 
-    public int getFinalPaymentAmount() {
+    public long getFinalPaymentAmount() {
         return finalPaymentAmount;
     }
 }

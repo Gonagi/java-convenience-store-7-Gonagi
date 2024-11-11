@@ -14,8 +14,8 @@ public class PromotionParser {
 
     private static Promotion createPromotionByElements(final List<String> promotionElements) {
         String name = promotionElements.get(0);
-        int buy = parseNumber(promotionElements.get(1));
-        int get = parseNumber(promotionElements.get(2));
+        long buy = parseNumber(promotionElements.get(1));
+        long get = parseNumber(promotionElements.get(2));
         LocalDate startDate = parseDate(promotionElements.get(3));
         LocalDate endDate = parseDate(promotionElements.get(4));
         PromotionValidator.validateAvailableDate(startDate, endDate);
@@ -30,7 +30,7 @@ public class PromotionParser {
         return promotionsElements;
     }
 
-    private static int parseNumber(final String number) {
+    private static long parseNumber(final String number) {
         try {
             return Parser.parseNumber(number);
         } catch (NumberFormatException e) {

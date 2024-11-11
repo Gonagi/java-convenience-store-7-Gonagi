@@ -12,21 +12,13 @@ public class ProductParser {
 
     private static Product createProductByElements(final List<String> productElements, final Promotions promotions) {
         String productName = productElements.get(0);
-        int productPrice = parseProductNumber(productElements.get(1));
-        int quantity = parseProductNumber(productElements.get(2));
+        long productPrice = parseProductNumber(productElements.get(1));
+        long quantity = parseProductNumber(productElements.get(2));
         String promotionName = productElements.get(3);
-        Product.Builder productBuilder = new Product.Builder(productName, Quantity.from(quantity))
-                .price(productPrice);
 
-        if (!promotionName.isBlank() && !"null".equalsIgnoreCase(promotionName)) {
-            productBuilder.promotion(promotions.findPromotionByName(promotionName));
-        }
-
+        Product.Builder productBuilder = new Product.Builder(productName, Quantity.from(quantity)).price(productPrice);
+        addPromotionToBuilder(productBuilder, promotionName, promotions);
         return productBuilder.build();
-//        return new Builder(productName, Quantity.from(quantity))
-//                .price(productPrice)
-//                .promotion(promotions.findPromotionByName(promotionName))
-//                .build();
     }
 
     private static List<String> parseProductElements(final String productInformation) {
@@ -37,11 +29,18 @@ public class ProductParser {
         return productElements;
     }
 
-    private static int parseProductNumber(final String number) {
+    private static long parseProductNumber(final String number) {
         try {
             return Parser.parseNumber(number);
         } catch (NumberFormatException e) {
             throw new NumberFormatException("[ERROR] price, quantity 값들 중 유효하지 않은 값이 있습니다.");
+        }
+    }
+
+    private static void addPromotionToBuilder(final Product.Builder productBuilder, final String promotionName,
+                                              final Promotions promotions) {
+        if (!promotionName.isBlank() && !"null".equalsIgnoreCase(promotionName)) {
+            productBuilder.promotion(promotions.findPromotionByName(promotionName));
         }
     }
 }

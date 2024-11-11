@@ -1,27 +1,3 @@
-//package service;
-//
-//import domain.product.Product;
-//
-//public class PromotionService {
-//    public void processPromotionProduct(final Product product, int purchaseQuantity,
-//                                        final ReceiptService receiptService) {
-//        while (purchaseQuantity > 0) {
-//            processPromotion(product, purchaseQuantity, receiptService);
-//            purchaseQuantity -= product.getPromotionBuy();
-//        }
-//    }
-//
-//    private void processPromotion(final Product product, final int remainingQuantity,
-//                                  final ReceiptService receiptService) {
-//        int buy = product.getPromotionBuy();
-//        int get = product.getPromotionGet();
-//        int purchasableQuantity = Math.min(buy, remainingQuantity);
-//
-//        receiptService.addBuyingProducts(product, purchasableQuantity);
-//        receiptService.addFreebieProduct(product, get);
-//    }
-//}
-
 package service;
 
 import domain.product.Product;
@@ -33,11 +9,11 @@ public class PromotionService {
         this.inputService = inputService;
     }
 
-    public void processPromotionProduct(final Product product, int purchaseQuantity,
+    public void processPromotionProduct(final Product product, long purchaseQuantity,
                                         final ReceiptService receiptService) {
         while (purchaseQuantity > 0) {
-            int buy = product.getPromotionBuy();
-            int get = product.getPromotionGet();
+            long buy = product.getPromotionBuy();
+            long get = product.getPromotionGet();
 
             if (purchaseQuantity < buy) {
                 String response = inputService.inputPromotionApplied(product);
@@ -59,11 +35,11 @@ public class PromotionService {
         }
     }
 
-    private void processPromotion(final Product product, final int remainingQuantity,
+    private void processPromotion(final Product product, final long remainingQuantity,
                                   final ReceiptService receiptService) {
-        int buy = product.getPromotionBuy();
-        int get = product.getPromotionGet();
-        int purchasableQuantity = Math.min(buy, remainingQuantity);
+        long buy = product.getPromotionBuy();
+        long get = product.getPromotionGet();
+        long purchasableQuantity = Math.min(buy, remainingQuantity);
 
         receiptService.addBuyingProducts(product, purchasableQuantity);
         receiptService.addFreebieProduct(product, get);

@@ -75,7 +75,7 @@ public class ProductsFactory {
     private static Product createProduct(String inputOrder) {
         String[] split = inputOrder.split("-");
         String name = Parser.removeFrontBracket(split[0]);
-        int quantity = Parser.parseNumber(Parser.removeBackBracket(split[1]));
+        long quantity = Parser.parseNumber(Parser.removeBackBracket(split[1]));
         return new Product.Builder(name, Quantity.from(quantity)).build();
     }
 }

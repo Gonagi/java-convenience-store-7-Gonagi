@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Product {
     private final String name;
-    private final int price;
+    private final long price;
     private final Quantity quantity;
     private final Promotion promotion;
 
@@ -18,7 +18,7 @@ public class Product {
         this.promotion = builder.promotion;
     }
 
-    public void reduceProductStock(final int purchaseQuantity) {
+    public void reduceProductStock(final long purchaseQuantity) {
         quantity.reduceQuantity(purchaseQuantity);
     }
 
@@ -52,7 +52,7 @@ public class Product {
         return name;
     }
 
-    public int getPrice() {
+    public long getPrice() {
         return price;
     }
 
@@ -60,15 +60,15 @@ public class Product {
         return promotion.getName();
     }
 
-    public int getQuantity() {
+    public long getQuantity() {
         return quantity.getQuantity();
     }
 
-    public int getPromotionBuy() {
+    public long getPromotionBuy() {
         return promotion.getBuy();
     }
 
-    public int getPromotionGet() {
+    public long getPromotionGet() {
         return promotion.getGet();
     }
 
@@ -92,7 +92,7 @@ public class Product {
 
     public static class Builder {
         String name;
-        int price;
+        long price;
         Quantity quantity;
         Promotion promotion;
 
@@ -101,7 +101,7 @@ public class Product {
             this.quantity = quantity;
         }
 
-        public Builder price(final int price) {
+        public Builder price(final long price) {
             this.price = price;
             return this;
         }

@@ -45,7 +45,7 @@ public class Controller {
                 purchaseProducts = ProductsFactory.createProductsByInput(inputOrders);
                 for (Product purchaseProduct : purchaseProducts.getProducts()) {
                     Product findProduct = inventory.findProductByName(purchaseProduct);
-                    int purchaseQuantity = purchaseProduct.getQuantity();
+                    long purchaseQuantity = purchaseProduct.getQuantity();
                     processProduct(findProduct, purchaseQuantity);
                     receiptService.updateFinalPaymentAmount();
                     inventoryService.reduceProductStock(findProduct, purchaseQuantity);
@@ -71,8 +71,8 @@ public class Controller {
 //        inputService.inputAdditionalPurchaseOption();
     }
 
-    private void processProduct(final Product product, final int quantity) {
-        int productStock = inventory.getProductStock(product);
+    private void processProduct(final Product product, final long quantity) {
+        long productStock = inventory.getProductStock(product);
 
         if (quantity > productStock) {
             throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
