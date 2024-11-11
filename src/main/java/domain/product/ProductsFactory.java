@@ -32,11 +32,11 @@ public class ProductsFactory {
         return new Products(products);
     }
 
-    private static List<String> readFromProductFiles(final String filePath) throws FileNotFoundException {
+    private static List<String> readFromProductFiles(final String filePath) {
         try {
             return FileUtils.readLinesFromFile(filePath);
         } catch (FileNotFoundException e) {
-            throw new FileNotFoundException(ErrorMessage.PRODUCT_FILE_NOT_FOUND.getMessage());
+            throw new IllegalStateException(ErrorMessage.PRODUCT_FILE_NOT_FOUND.getMessage());
         }
     }
 

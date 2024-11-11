@@ -4,6 +4,7 @@ import constant.ErrorMessage;
 import domain.product.Product;
 import domain.product.Products;
 import domain.product.ProductsFactory;
+import java.time.DateTimeException;
 import service.InputService;
 import service.InventoryService;
 import service.OutputService;
@@ -40,7 +41,7 @@ public class Controller {
             try {
                 processOrder();
                 break;
-            } catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException | DateTimeException e) {
                 System.out.println(e.getMessage());
             }
         }

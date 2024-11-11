@@ -1,5 +1,6 @@
 package domain.inventory;
 
+import constant.ErrorMessage;
 import domain.product.Product;
 import domain.product.Product.Builder;
 import domain.product.Products;
@@ -26,7 +27,7 @@ class InventoryTest {
             promotions = Promotions.from(promotionFilePath);
             products = ProductsFactory.createProductsByFile(productFilePath, promotions);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(ErrorMessage.PROMOTION_FILE_NOT_FOUND.getMessage());
         }
         inventory = Inventory.from(products);
     }

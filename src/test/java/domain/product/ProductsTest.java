@@ -1,5 +1,6 @@
 package domain.product;
 
+import constant.ErrorMessage;
 import domain.product.Product.Builder;
 import domain.promotion.Promotion;
 import domain.promotion.Promotions;
@@ -19,7 +20,7 @@ class ProductsTest {
         try {
             promotions = Promotions.from(filePath);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(ErrorMessage.PROMOTION_FILE_NOT_FOUND.getMessage());
         }
     }
 
@@ -39,7 +40,7 @@ class ProductsTest {
         String wrongFilePath = "wrongFilePath";
 
         Assertions.assertThatThrownBy(() -> ProductsFactory.createProductsByFile(wrongFilePath, promotions))
-                .isInstanceOf(FileNotFoundException.class);
+                .isInstanceOf(IllegalStateException.class);
     }
 
     @Test

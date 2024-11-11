@@ -59,7 +59,7 @@ public class AppConfig {
         try {
             return Promotions.from(PROMOTION_FILE_PATH);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(ErrorMessage.PROMOTION_FILE_NOT_FOUND.getMessage());
+            throw new IllegalStateException(ErrorMessage.PROMOTION_FILE_NOT_FOUND.getMessage());
         }
     }
 
@@ -67,7 +67,7 @@ public class AppConfig {
         try {
             return ProductsFactory.createProductsByFile(PRODUCT_FILE_PATH, promotions);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(ErrorMessage.PRODUCT_FILE_NOT_FOUND.getMessage());
+            throw new IllegalStateException(ErrorMessage.PRODUCT_FILE_NOT_FOUND.getMessage());
         }
     }
 }

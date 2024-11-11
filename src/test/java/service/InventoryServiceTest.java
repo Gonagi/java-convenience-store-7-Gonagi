@@ -1,5 +1,6 @@
 package service;
 
+import constant.ErrorMessage;
 import domain.inventory.Inventory;
 import domain.product.Product;
 import domain.product.Product.Builder;
@@ -40,7 +41,7 @@ class InventoryServiceTest {
             promotions = Promotions.from(promotionFilePath);
             products = ProductsFactory.createProductsByFile(productFilePath, promotions);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(ErrorMessage.PROMOTION_FILE_NOT_FOUND.getMessage());
         }
         inventory = Inventory.from(products);
         inventoryService = new InventoryService(inventory);
