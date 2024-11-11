@@ -9,14 +9,13 @@ import domain.receipt.Receipt;
 import java.io.FileNotFoundException;
 import service.InputService;
 import service.InventoryService;
+import service.OutputService;
 import service.PromotionService;
 import service.ReceiptService;
 import view.InputView;
 import view.OutputView;
 
 public class AppConfig {
-
-
     private Promotions promotions;
     private Products products;
     private Inventory inventory;
@@ -26,7 +25,7 @@ public class AppConfig {
     }
 
     public Controller controller() {
-        return new Controller(inputView(), inputService(), outputView(), inventory, inventoryService(),
+        return new Controller(inputService(), outputService(), inventory, inventoryService(),
                 receiptService(), promotionService());
     }
 
@@ -36,6 +35,14 @@ public class AppConfig {
 
     public InputService inputService() {
         return new InputService(inputView());
+    }
+
+    public OutputView outputView() {
+        return new OutputView();
+    }
+
+    public OutputService outputService() {
+        return new OutputService(outputView());
     }
 
     public InventoryService inventoryService() {
@@ -48,10 +55,6 @@ public class AppConfig {
 
     public PromotionService promotionService() {
         return new PromotionService(inputService());
-    }
-
-    public OutputView outputView() {
-        return new OutputView();
     }
 
     private void initializeInventory() {
