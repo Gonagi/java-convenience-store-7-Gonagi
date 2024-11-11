@@ -4,7 +4,7 @@ import domain.product.Product;
 import domain.product.Products;
 import domain.product.ProductsFactory;
 import java.util.LinkedList;
-import java.util.Set;
+import java.util.List;
 
 public class Receipt {
     private final Products buyingProducts;
@@ -39,11 +39,11 @@ public class Receipt {
         amount.calculateFinalPaymentAmount();
     }
 
-    public Set<Product> getBuyingProducts() {
+    public List<Product> getBuyingProducts() {
         return buyingProducts.getProducts();
     }
 
-    public Set<Product> getFreebieProducts() {
+    public List<Product> getFreebieProducts() {
         return freebieProducts.getProducts();
     }
 

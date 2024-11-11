@@ -3,14 +3,14 @@ package domain.inventory;
 import constant.ErrorMessage;
 import domain.product.Product;
 import domain.product.Products;
-import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public class Inventory {
-    private final Set<Product> products;
+    private final List<Product> products;
 
-    private Inventory(final Set<Product> products) {
+    private Inventory(final List<Product> products) {
         this.products = validateDuplicateProduct(products);
     }
 
@@ -68,8 +68,8 @@ public class Inventory {
                 .findFirst();
     }
 
-    private Set<Product> validateDuplicateProduct(final Set<Product> products) {
-        Set<Product> deDuplicateProducts = new LinkedHashSet<>(products);
+    private List<Product> validateDuplicateProduct(final List<Product> products) {
+        List<Product> deDuplicateProducts = new LinkedList<>(products);
         if (deDuplicateProducts.size() != products.size()) {
             throw new IllegalArgumentException(ErrorMessage.DUPLICATE_PRODUCT_NOT_ALLOWED.getMessage());
         }
@@ -81,7 +81,7 @@ public class Inventory {
         return product.map(Product::getQuantity).orElse(0L);
     }
 
-    public Set<Product> getProducts() {
-        return new LinkedHashSet<>(products);
+    public List<Product> getProducts() {
+        return new LinkedList<>(products);
     }
 }

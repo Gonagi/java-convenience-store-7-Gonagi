@@ -1,8 +1,7 @@
 package domain.product;
 
-import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 public class Products {
     private final List<Product> products;
@@ -15,7 +14,7 @@ public class Products {
         products.add(product);
     }
 
-    public Set<Product> getProducts() {
-        return new LinkedHashSet<>(products);
+    public List<Product> getProducts() {
+        return new LinkedList<>(products);
     }
 }
