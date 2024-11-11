@@ -18,4 +18,16 @@ public class InventoryService {
     public void reduceProductStock(final Product product, final long purchaseQuantity) {
         product.reduceProductStock(purchaseQuantity);
     }
+
+    public Product findProductByName(final Product purchaseProduct) {
+        return inventory.findProductByName(purchaseProduct);
+    }
+
+    public long getProductStock(final Product product) {
+        return inventory.getProductStock(product);
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
 }

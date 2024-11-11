@@ -15,7 +15,7 @@ public class Quantity {
 
     private void validateQuantity(final long quantity) {
         if (quantity < NO_STOCK) {
-            throw new IllegalArgumentException("[ERROR] 잘못된 입력입니다. 다시 입력해 주세요.\n");
+            throw new IllegalArgumentException("[ERROR] 잘못된 입력입니다. 다시 입력해 주세요.");
         }
     }
 

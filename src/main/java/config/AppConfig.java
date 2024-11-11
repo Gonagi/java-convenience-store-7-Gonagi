@@ -16,57 +16,57 @@ import view.InputView;
 import view.OutputView;
 
 public class AppConfig {
-    private Promotions promotions;
-    private Products products;
-    private Inventory inventory;
+    private static final String PROMOTION_FILE_PATH = "src/main/resources/promotions.md";
+    private static final String PRODUCT_FILE_PATH = "src/test/resources/products.md";
+    private final Promotions promotions;
+    private final Products products;
+    private final Inventory inventory;
 
     public AppConfig() {
-        initializeInventory();
+        this.promotions = loadPromotions();
+        this.products = loadProducts(promotions);
+        this.inventory = Inventory.from(products);
     }
 
     public Controller controller() {
-        return new Controller(inputService(), outputService(), inventory, inventoryService(),
-                receiptService(), promotionService());
-    }
-
-    public InputView inputView() {
-        return new InputView();
+        return new Controller(inputService(), outputService(),
+                inventoryService(), receiptService(),
+                promotionService());
     }
 
     public InputService inputService() {
-        return new InputService(inputView());
-    }
-
-    public OutputView outputView() {
-        return new OutputView();
+        return new InputService(new InputView());
     }
 
     public OutputService outputService() {
-        return new OutputService(outputView());
+        return new OutputService(new OutputView());
     }
 
     public InventoryService inventoryService() {
-        return new InventoryService(inventory); // inventory는 항상 초기화된 상태로 전달됨
-    }
-
-    public ReceiptService receiptService() {
-        return new ReceiptService(new Receipt());
+        return new InventoryService(inventory);
     }
 
     public PromotionService promotionService() {
         return new PromotionService(inputService());
     }
 
-    private void initializeInventory() {
-        String promotionFilePath = "src/main/resources/promotions.md";
-        String productFilePath = "src/test/resources/products.md";
+    public ReceiptService receiptService() {
+        return new ReceiptService(new Receipt());
+    }
 
+    private Promotions loadPromotions() {
         try {
-            promotions = Promotions.from(promotionFilePath);
-            products = ProductsFactory.createProductsByFile(productFilePath, promotions);
-            inventory = Inventory.from(products);
+            return Promotions.from(PROMOTION_FILE_PATH);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException("[ERROR] 파일을 찾을 수 없습니다: " + e.getMessage(), e);
+            throw new RuntimeException("[ERROR] Promotions 파일을 찾을 수 없습니다: " + e.getMessage(), e);
+        }
+    }
+
+    private Products loadProducts(Promotions promotions) {
+        try {
+            return ProductsFactory.createProductsByFile(PRODUCT_FILE_PATH, promotions);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("[ERROR] Products 파일을 찾을 수 없습니다: " + e.getMessage(), e);
         }
     }
 }

@@ -1,6 +1,5 @@
 package controller;
 
-import domain.inventory.Inventory;
 import domain.product.Product;
 import domain.product.Products;
 import domain.product.ProductsFactory;
@@ -13,24 +12,22 @@ import service.ReceiptService;
 public class Controller {
     private final InputService inputService;
     private final OutputService outputService;
-    private final Inventory inventory;
     private final InventoryService inventoryService;
     private final ReceiptService receiptService;
     private final PromotionService promotionService;
 
     public Controller(InputService inputService, OutputService outputService,
-                      Inventory inventory, InventoryService inventoryService, ReceiptService receiptService,
+                      InventoryService inventoryService, ReceiptService receiptService,
                       PromotionService promotionService) {
         this.inputService = inputService;
         this.outputService = outputService;
-        this.inventory = inventory;
         this.inventoryService = inventoryService;
         this.receiptService = receiptService;
         this.promotionService = promotionService;
     }
 
     public void run() {
-        outputService.printBeforeTransaction(inventory);
+        outputService.printBeforeTransaction(inventoryService.getInventory());
         startOrderProcessing();
         processMembershipDiscount();
         outputService.printAfterTransaction(receiptService.getReceipt());
@@ -57,7 +54,7 @@ public class Controller {
     }
 
     private void processSingleProduct(Product purchaseProduct) {
-        Product findProduct = inventory.findProductByName(purchaseProduct);
+        Product findProduct = inventoryService.findProductByName(purchaseProduct);
         long purchaseQuantity = purchaseProduct.getQuantity();
 
         processProduct(findProduct, purchaseQuantity);
@@ -89,7 +86,7 @@ public class Controller {
     }
 
     private void checkProductStock(final Product product, final long quantity) {
-        long productStock = inventory.getProductStock(product);
+        long productStock = inventoryService.getProductStock(product);
         if (quantity > productStock) {
             throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
         }
