@@ -1,6 +1,5 @@
 package domain.product;
 
-import domain.product.Product.Builder;
 import domain.promotion.Promotions;
 import java.util.List;
 import utils.Parser;
@@ -16,11 +15,18 @@ public class ProductParser {
         int productPrice = parseProductNumber(productElements.get(1));
         int quantity = parseProductNumber(productElements.get(2));
         String promotionName = productElements.get(3);
+        Product.Builder productBuilder = new Product.Builder(productName, Quantity.from(quantity))
+                .price(productPrice);
 
-        return new Builder(productName, Quantity.from(quantity))
-                .price(productPrice)
-                .promotion(promotions.findPromotionByName(promotionName))
-                .build();
+        if (!promotionName.isBlank() && !"null".equalsIgnoreCase(promotionName)) {
+            productBuilder.promotion(promotions.findPromotionByName(promotionName));
+        }
+
+        return productBuilder.build();
+//        return new Builder(productName, Quantity.from(quantity))
+//                .price(productPrice)
+//                .promotion(promotions.findPromotionByName(promotionName))
+//                .build();
     }
 
     private static List<String> parseProductElements(final String productInformation) {

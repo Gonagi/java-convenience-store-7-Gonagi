@@ -32,4 +32,8 @@ public class ReceiptService {
     public void updateFinalPaymentAmount() {
         receipt.calculateFinalPaymentAmount();
     }
+
+    public Receipt getReceipt() {
+        return receipt;
+    }
 }
